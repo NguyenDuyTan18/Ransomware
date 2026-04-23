@@ -59,5 +59,37 @@ Dự án này được thiết kế hoàn toàn cho mục đích:
 4. **Victim Tải về và Chạy**: Trên Victim, truy cập http://192.168.1.9 để tải về file "Office365_Setup.exe" và chạy nó.
 5. **Quan sát**: Theo dõi quá trình mã hóa file trên Victim và kết nối ngược về Attacker.
 
+## Phòng Tránh Ransomware (Prevention)
+
+### Công cụ & Cấu hình (Tools & Configuration)
+| Lĩnh vực | Công cụ | Lệnh/Cách sử dụng |
+|---------|---------|-------------------|
+| **Backup** | Macrium Reflect, Veeam | Backup hàng ngày → USB ngoài (ngắt kết nối) |
+| **Antivirus** | Windows Defender | `Set-MpPreference -DisableRealtimeMonitoring $false` (bật) |
+| **EDR** | Microsoft Defender for Endpoint | Bật trên Control Panel → Defender |
+| **Firewall** | Windows Defender Firewall | Bật inbound/outbound rules qua `gpedit.msc` |
+| **RDP** | Tắt RDP nếu không cần | Vào `devmgmt.msc` → tắt Remote Desktop |
+| **Scripts** | Vô hiệu hóa VBS/JS | `gpedit.msc` → Script Policies → Disable |
+| **Email** | Outlook + Phishing filters | Bật Advanced Threat Protection (ATP) |
+| **Patch** | Windows Update | Bật automatic updates trong `settings.exe` |
+
+
+## Khi Bị Mã Hóa (Incident Response)
+
+### Các Bước Xử Lý Ngay Lập Tức
+| Bước | Hành động | Chi tiết |
+|------|----------|---------|
+| **1** | Ngắt mạng | Rút Ethernet hoặc tắt WiFi ngay lập tức |
+| **2** | Không tắt máy | Giữ máy bật để bảo toàn RAM (khóa có thể còn ở RAM) |
+| **3** | Báo cáo | Thông báo cho IT/An ninh ngay |
+| **4** | Cách ly | Di chuyển máy ra khỏi mạng |
+
+
+### Không Nên Làm
+- ❌ **Trả tiền chuộc** → Không đảm bảo khôi phục, tài trợ tội phạm
+- ❌ **Xóa ổ cứng ngay** → Mất bằng chứi pháp y
+- ❌ **Kết nối internet** → Ransomware lây lan & kết nối C2 server
+- ❌ **Sử dụng tài khoản Admin** → Tăng phạm vi tác hại
+
 
 
